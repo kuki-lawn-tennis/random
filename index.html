@@ -67,10 +67,10 @@ button { font-family: inherit; cursor: pointer; }
   display: flex; align-items: center; justify-content: center; border-radius: 8px;
   font-family: var(--font-num); font-weight: 700;
 }
-.back { background: var(--back); color: var(--back-fg); font-size: 28px; }
+.back { background: var(--back); color: var(--back-fg); font-size: 30px; }
 .front {
   background: var(--front); color: var(--front-fg); border: 2px solid var(--front-line);
-  transform: rotateY(180deg); font-size: 26px; font-variant-numeric: tabular-nums;
+  transform: rotateY(180deg); font-size: 30px; font-variant-numeric: tabular-nums;
 }
 .card:not(.open):active .inner { transform: scale(.96); }
 .card.open { cursor: default; }
@@ -86,7 +86,7 @@ button { font-family: inherit; cursor: pointer; }
   <form class="panel" id="form" novalidate>
     <div class="field">
       <label for="count">数字（1〜200）</label>
-      <input id="count" type="number" inputmode="numeric" min="1" max="200" step="1" value="12">
+      <input id="count" type="number" inputmode="numeric" min="1" max="200" step="1" value="" required>
     </div>
     <button class="btn primary" type="submit">生成</button>
     <p class="msg" id="msg" role="alert" style="flex-basis:100%"></p>
