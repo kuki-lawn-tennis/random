@@ -147,7 +147,7 @@ button { font-family: inherit; cursor: pointer; }
       b.className = 'card';
       b.dataset.n = num;
       b.setAttribute('aria-label', '伏せたカード');
-      b.innerHTML = '<div class="inner"><div class="face back">？</div><div class="face front">' + num + '</div></div>';
+      b.innerHTML = '<div class="inner"><div class="face back">🎾</div><div class="face front">' + num + '</div></div>';
       b.addEventListener('click', function () { reveal(b); });
       grid.appendChild(b);
       cards.push(b);
