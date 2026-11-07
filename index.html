@@ -67,10 +67,10 @@ button { font-family: inherit; cursor: pointer; }
   display: flex; align-items: center; justify-content: center; border-radius: 8px;
   font-family: var(--font-num); font-weight: 700;
 }
-.back { background: var(--back); color: var(--back-fg); font-size: 30px; }
+.back { background: var(--back); color: var(--back-fg); font-size: 32px; }
 .front {
   background: var(--front); color: var(--front-fg); border: 2px solid var(--front-line);
-  transform: rotateY(180deg); font-size: 30px; font-variant-numeric: tabular-nums;
+  transform: rotateY(180deg); font-size: 34px; font-variant-numeric: tabular-nums;
 }
 .card:not(.open):active .inner { transform: scale(.96); }
 .card.open { cursor: default; }
@@ -147,7 +147,7 @@ button { font-family: inherit; cursor: pointer; }
       b.className = 'card';
       b.dataset.n = num;
       b.setAttribute('aria-label', '伏せたカード');
-      b.innerHTML = '<div class="inner"><div class="face back">🎾</div><div class="face front">' + num + '</div></div>';
+      b.innerHTML = '<div class="inner"><div class="face back">？</div><div class="face front">' + num + '</div></div>';
       b.addEventListener('click', function () { reveal(b); });
       grid.appendChild(b);
       cards.push(b);
