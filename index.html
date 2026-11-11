@@ -1,6 +1,9 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>乱数表</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=JetBrains+Mono:wght@700&display=swap">
 <style>
   /* レイアウト: 1カラムの操作パネル + 自動折り返しのカード格子。カードは裏返して番号を表示 */
@@ -21,6 +24,45 @@
     --err: #c0392b;
     --font-display: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
     --font-num: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  /* ダークモード: 端末の設定に従う（手動指定の data-theme="light" があればライトを優先） */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1713;
+      --fg: #e6efe9;
+      --muted: #9db0a5;
+      --line: #2a3a31;
+      --accent: #5cc08c;
+      --accent-fg: #06200f;
+      --title-bg: #1f3d2e;
+      --title-fg: #e6f6ec;
+      --back: #2a7a54;
+      --back-fg: #e6f6ec;
+      --front: #17231c;
+      --front-fg: #8fdcb2;
+      --front-line: #5cc08c;
+      --err: #ff8f80;
+      color-scheme: dark;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0f1713;
+    --fg: #e6efe9;
+    --muted: #9db0a5;
+    --line: #2a3a31;
+    --accent: #5cc08c;
+    --accent-fg: #06200f;
+    --title-bg: #1f3d2e;
+    --title-fg: #e6f6ec;
+    --back: #2a7a54;
+    --back-fg: #e6f6ec;
+    --front: #17231c;
+    --front-fg: #8fdcb2;
+    --front-line: #5cc08c;
+    --err: #ff8f80;
+    color-scheme: dark;
   }
 
   * {
@@ -241,7 +283,8 @@
     }
   }
 </style>
-
+</head>
+<body>
 <div class="wrap">
   <header>
     <h1>乱数表</h1>
@@ -357,5 +400,5 @@
     });
   })();
 </script>
-
-</body></html>
+</body>
+</html>
