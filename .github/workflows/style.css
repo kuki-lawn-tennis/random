@@ -1,0 +1,276 @@
+/* レイアウト: 1カラムの操作パネル + 自動折り返しのカード格子。カードは裏返して番号を表示 */
+:root {
+  --bg: #ffffff;
+  --fg: #1d2b24;
+  --muted: #5f6f66;
+  --line: #d9e3dd;
+  --accent: #1f5c3f;
+  --accent-fg: #ffffff;
+  --title-bg: #cdeedb;
+  --title-fg: #000000;
+  --back: #1f5c3f;
+  --back-fg: #d9efe2;
+  --front: #ffffff;
+  --front-fg: #1f5c3f;
+  --front-line: #1f5c3f;
+  --err: #c0392b;
+  --font-display: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --font-num: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+/* ダークモード: 端末の設定に従う（手動指定の data-theme="light" があればライトを優先） */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1713;
+    --fg: #e6efe9;
+    --muted: #9db0a5;
+    --line: #2a3a31;
+    --accent: #5cc08c;
+    --accent-fg: #06200f;
+    --title-bg: #1f3d2e;
+    --title-fg: #e6f6ec;
+    --back: #2a7a54;
+    --back-fg: #e6f6ec;
+    --front: #17231c;
+    --front-fg: #8fdcb2;
+    --front-line: #5cc08c;
+    --err: #ff8f80;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0f1713;
+  --fg: #e6efe9;
+  --muted: #9db0a5;
+  --line: #2a3a31;
+  --accent: #5cc08c;
+  --accent-fg: #06200f;
+  --title-bg: #1f3d2e;
+  --title-fg: #e6f6ec;
+  --back: #2a7a54;
+  --back-fg: #e6f6ec;
+  --front: #17231c;
+  --front-fg: #8fdcb2;
+  --front-line: #5cc08c;
+  --err: #ff8f80;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 1.6;
+  padding-block: 24px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------- レイアウト ---------- */
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+h1 {
+  margin: 0;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: var(--title-bg);
+  color: var(--title-fg);
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-wrap: balance;
+}
+
+.lead {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ---------- 入力パネル ---------- */
+.panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+.field {
+  flex: 1 1 140px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field label {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+input[type="number"] {
+  width: 100%;
+  height: 48px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-num);
+  font-size: 20px;
+}
+
+.btn {
+  height: 48px;
+  padding: 0 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--fg);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.btn.primary {
+  flex: 1 1 120px;
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+.msg {
+  flex-basis: 100%;
+  margin: 0;
+  min-height: 1.5em;
+  color: var(--err);
+  font-size: 13px;
+}
+
+/* ---------- 状況バー ---------- */
+.status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.count {
+  color: var(--muted);
+  font-family: var(--font-num);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.count b {
+  color: var(--fg);
+}
+
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tools .btn {
+  height: 38px;
+  padding: 0 14px;
+  font-size: 13px;
+}
+
+/* ---------- カード ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 10px;
+}
+
+.card {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  padding: 0;
+  border: 0;
+  background: none;
+  perspective: 600px;
+}
+
+.inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.45s ease;
+}
+
+.card.open {
+  cursor: default;
+}
+
+.card.open .inner {
+  transform: rotateY(180deg);
+}
+
+.card:not(.open):active .inner {
+  transform: scale(0.96);
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  font-family: var(--font-num);
+  font-weight: 700;
+}
+
+.back {
+  background: var(--back);
+  color: var(--back-fg);
+  font-size: 32px;
+}
+
+.front {
+  border: 2px solid var(--front-line);
+  background: var(--front);
+  color: var(--front-fg);
+  font-size: 38px;
+  font-variant-numeric: tabular-nums;
+  transform: rotateY(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inner {
+    transition: none;
+  }
+}
