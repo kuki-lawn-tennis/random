@@ -27,7 +27,6 @@
     <div class="count" id="counter" aria-live="polite"></div>
     <div class="tools">
       <button class="btn" type="button" id="openAll">すべてめくる</button>
-      <button class="btn" type="button" id="reshuffle">シャッフル</button>
     </div>
   </div>
 
@@ -116,10 +115,6 @@
 
     document.getElementById('openAll').addEventListener('click', function () {
       cards.forEach(function (c) { reveal(c); });
-    });
-
-    document.getElementById('reshuffle').addEventListener('click', function () {
-      if (total) build(total);
     });
   })();
 </script>
